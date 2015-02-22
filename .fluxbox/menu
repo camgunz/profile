@@ -1,0 +1,16 @@
+[begin] (Fluxbox)
+  [submenu] (Apps)
+    [exec] (XTerm) {/usr/bin/xterm -e /usr/bin/tmux}
+    [exec] (Vim) {/usr/bin/xterm -e /usr/bin/vim}
+    [exec] (Browser) {~/bin/browser}
+  [end]
+  [config] (Config)
+  [submenu] (Styles) {}
+    [stylesdir] (/usr/share/fluxbox/styles)
+    [stylesdir] (~/.fluxbox/styles)
+  [end]
+  [workspaces] (Workspaces)
+  [reconfig] (Reconfigure)
+  [restart] (Restart)
+  [exit] (Exit)
+[end]

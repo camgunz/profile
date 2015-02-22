@@ -1,0 +1,44 @@
+Xft.dpi: 125
+!Xft.dpi: 92
+Xft*forcePackedFont: false
+XTerm*faceName: xft:Liberation Monot:pixelsize=10
+XTerm*faceNameDoublesize: xft:unifont:pixelsize=12
+XTerm*faceSize: 8
+XTerm*foreground: White
+XTerm*background: Black
+XTerm*allowBoldFonts: True
+XTerm*allowColorOps: True
+XTerm*allowTcapOps: True
+XTerm*allowWindowOps: True
+XTerm*dynamicColors: True
+XTerm*jumpScroll: True
+XTerm*fastScroll: True
+XTerm*renderFont: True
+XTerm*saveLines: 2000
+XTerm*termName: xterm-256color
+XTerm*utf8: 2
+XTerm*utfTitle: True
+XTerm*visualBell: True
+
+URxvt.saveLines: 2000
+URxvt.reverseVideo: False
+!URxvt.font: xft:Input:pixelsize=8,xft:unifont
+URxvt.font: xft:Liberation Mono:pixelsize=10,xft:unifont
+URxvt.scrollBar: False
+URxvt.cursorBlink: False
+URxvt.termname: rxvt-256color
+URxvt.letterSpace: -1
+URxvt.foreground: White
+URxvt.background: Black
+URxvt.lineSpace: 1.1
+!URxvt.transparent: true
+!URxvt.shading: 60
+!URxvt.depth: 32
+!URxvt.buffered: true
+!URxvt.background: rgba:ffff/ffff/ffff/dddd
+!URxvt.fading: 2%
+!URxvt.fadeColor: grey
+!URxvt.shading: 75
+
+ssh-askpass*background: #000000
+

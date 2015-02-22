@@ -1,0 +1,20 @@
+[app] (name=fbrun)
+  [Position]	(CENTER)	{0 0}
+  [Deco]	{BORDER}
+  [Layer]	{2}
+  [Alpha]	{190}
+[end]
+[app] (name=urxvt)
+  [Deco]	{BORDER}
+  [Alpha]	{230}
+[end]
+[app] (name=xterm) (class=XTerm)
+  [Deco]	{BORDER}
+  [Alpha]	{210}
+[end]
+[app] (name=st-256color) (class=st-256color)
+  [Deco]	{BORDER}
+[end]
+[app] (name=stterm-256color) (class=stterm-256color)
+  [Deco]	{BORDER}
+[end]
