@@ -1,23 +1,26 @@
 #!/bin/sh
 
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 mkdir ~/bin
-mkdir -p ~/.vim/colors
+mkdir -p ~/.vim/backup
+mkdir -p ~/.vim/undo
 
 cp ~/profile/.fonts.conf ~/.fonts.conf
-cp ~/profile/.tmux.conf ~/.tmux.conf
 cp ~/profile/.Xresources ~/.Xresources
 cp ~/profile/.vimrc ~/.vimrc
 cp ~/profile/.gvimrc ~/.gvimrc
-cp ~/profile/.vim/colors/* ~/.vim/colors
+cp ~/profile/.bashrc ~/.bashrc
+cp ~/profile/.inputrc ~/.inputrc
 
-cp -R ~/profile/bin/* ~/bin
-cp -R ~/profile/.fluxbox/backgrounds ~/.fluxbox
-cp -R ~/profile/.fluxbox/styles ~/.fluxbox
+cp -a ~/profile/bin/* ~/bin/
+cp -a ~/profile/.fluxbox/backgrounds ~/.fluxbox/
+cp -a ~/profile/.fluxbox/styles ~/.fluxbox/
 
-cp ~/profile/.fluxbox/apps ~/.fluxbox
-cp ~/profile/.fluxbox/init ~/.fluxbox
-cp ~/profile/.fluxbox/keys ~/.fluxbox
-cp ~/profile/.fluxbox/menu ~/.fluxbox
+cp ~/profile/.fluxbox/apps ~/.fluxbox/apps
+cp ~/profile/.fluxbox/init ~/.fluxbox/init
+cp ~/profile/.fluxbox/keys ~/.fluxbox/keys
+cp ~/profile/.fluxbox/menu ~/.fluxbox/menu
 
 xrdb -merge ~/.Xresources
 

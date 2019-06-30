@@ -57,9 +57,9 @@ Mod4 F11 :Workspace 11
 Mod4 F12 :Workspace 12
 
 Mod4 r :Exec fbrun -font "xft:Input:pixelsize=8" -fg grey -bg black
-Mod4 g :Exec /usr/bin/gvim
+Mod4 g :Exec ~/bin/gvim
 Mod4 f :Exec ~/bin/browser
-Mod4 t :Exec /usr/bin/urxvt -e /usr/bin/tmux
+Mod4 t :Exec ~/bin/term -e /usr/bin/tmux
 Mod4 v :MaximizeVertical
 Mod4 h :MaximizeHorizontal
 Mod4 x :Maximize
