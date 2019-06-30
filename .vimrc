@@ -18,6 +18,12 @@ endif
 Plugin 'gmarik/Vundle.vim'
 Plugin 'camgunz/midori'
 Plugin 'camgunz/cf-utils.vim'
+Plugin 'leafgarland/typescript-vim'
+Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'udalov/kotlin-vim'
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plugin 'vim-scripts/gtk-vim-syntax'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 
@@ -35,7 +41,7 @@ set encoding=utf-8
 set tenc=utf-8
 syntax on
 
-set runtimepath+=$GOROOT/misc/vim
+"set runtimepath+=$GOROOT/misc/vim
 
 if has("win32") || has("win16")
     colors desert
@@ -45,7 +51,7 @@ endif
 
 filetype on
 filetype plugin indent on
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
+"autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType c setlocal cindent
 set cino=(s,m1,c1
 
@@ -56,4 +62,8 @@ au BufRead,BufNewFile *.mkd set filetype=markdown
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
+let b:ale_linters = ['pylint', 'clang-check']
 
+let g:markdown_fenced_languages = ['html', 'python', 'c', 'js=javascript', 'sylva']
+
+set bg=dark

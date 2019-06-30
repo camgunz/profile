@@ -1,7 +1,8 @@
-Xft.dpi: 125
+Xft.dpi: 72
+!Xft.dpi: 125
 !Xft.dpi: 92
 Xft*forcePackedFont: false
-XTerm*faceName: xft:Liberation Monot:pixelsize=10
+XTerm*faceName: xft:Liberation Mono:pixelsize=9
 XTerm*faceNameDoublesize: xft:unifont:pixelsize=12
 XTerm*faceSize: 8
 XTerm*foreground: White
@@ -19,6 +20,7 @@ XTerm*termName: xterm-256color
 XTerm*utf8: 2
 XTerm*utfTitle: True
 XTerm*visualBell: True
+XTerm*cursorColor: #609060
 
 URxvt.saveLines: 2000
 URxvt.reverseVideo: False
