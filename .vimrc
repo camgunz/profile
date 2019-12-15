@@ -1,5 +1,6 @@
 set nocompatible
 set t_Co=256
+set shellcmdflag=-ic
 filetype off
 filetype plugin indent off
 if has("win32") || has("win16")
@@ -16,13 +17,14 @@ else
 endif
 
 Plugin 'gmarik/Vundle.vim'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'camgunz/midori'
-Plugin 'camgunz/cf-utils.vim'
+Plugin 'camgunz/amber'
+Plugin 'pangloss/vim-javascript'
 Plugin 'leafgarland/typescript-vim'
-Plugin 'dart-lang/dart-vim-plugin'
-Plugin 'udalov/kotlin-vim'
-Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plugin 'vim-scripts/gtk-vim-syntax'
+Plugin 'mxw/vim-jsx'
+Plugin 'jparise/vim-graphql'
 Plugin 'w0rp/ale'
 
 call vundle#end()
@@ -39,31 +41,51 @@ set modeline
 scriptencoding utf-8
 set encoding=utf-8
 set tenc=utf-8
+set bufhidden=delete
+set statusline=%F\ %m%=%r\ %h\ %w\ %l/%L:%c\ %P\ \
 syntax on
 
 "set runtimepath+=$GOROOT/misc/vim
 
 if has("win32") || has("win16")
-    colors desert
+    colorscheme desert
 else
-    colors midori
+    "colors midori
+    colorscheme amber
 endif
+
+let g:loaded_netrw=1
+let g:loaded_netrwPlugin=1
 
 filetype on
 filetype plugin indent on
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType c setlocal cindent
-set cino=(s,m1,c1
+"set cino=(s,m1,c1
+
+let g:vim_markdown_folding_disabed=1
+let g:vim_markdown_new_list_item_indent=0
+let g:markdown_fenced_languages=['html', 'python', 'c', 'js=javascript', 'sylva']
 
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.mkd set filetype=markdown
-"au BufRead,BufNewFile *.cfc set filetype=cfscript
-"au BufRead,BufNewFile *.cfm set filetype=cfml
+au BufRead,BufNewFile *.c set filetype=c
+au BufRead,BufNewFile *.sy set filetype=sylva
+
+let b:ale_linters = ['pylint', 'cppcheck']
+let g:ale_linters = { 'python': ['pylint'], 'c': ['cppcheck'], 'ch': ['cppcheck'] }
+let g:ale_c_parse_compile_commands = 1
+let g:ale_c_build_dir = 'cbuild'
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_filetype_changed = 1
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
-let b:ale_linters = ['pylint', 'clang-check']
-
-let g:markdown_fenced_languages = ['html', 'python', 'c', 'js=javascript', 'sylva']
+if getcwd() =~# '^/home/charlie/code'
+    set secure exrc
+endif
 
 set bg=dark
