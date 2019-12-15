@@ -22,10 +22,18 @@ Plugin 'camgunz/midori'
 Plugin 'camgunz/amber'
 Plugin 'pangloss/vim-javascript'
 Plugin 'leafgarland/typescript-vim'
+Plugin 'godlygeek/tabular'
+Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'udalov/kotlin-vim'
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plugin 'vim-scripts/gtk-vim-syntax'
 Plugin 'mxw/vim-jsx'
 Plugin 'jparise/vim-graphql'
 Plugin 'w0rp/ale'
+Plugin 'scrooloose/nerdtree'
+Plugin 'alfredodeza/coveragepy.vim'
+Plugin 'ambv/black'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
@@ -37,20 +45,23 @@ set autochdir
 set autoindent
 set ruler
 set hlsearch
+set incsearch
 set modeline
 scriptencoding utf-8
 set encoding=utf-8
 set tenc=utf-8
 set bufhidden=delete
-set statusline=%F\ %m%=%r\ %h\ %w\ %l/%L:%c\ %P\ \
+set statusline=%F\ %m%=%r\ %h\ %w\ %l/%L:%c\ %P\ \ 
 syntax on
 
 "set runtimepath+=$GOROOT/misc/vim
 
+set background=dark
+
 if has("win32") || has("win16")
     colorscheme desert
 else
-    "colors midori
+    " colorscheme midori
     colorscheme amber
 endif
 
@@ -70,10 +81,16 @@ let g:markdown_fenced_languages=['html', 'python', 'c', 'js=javascript', 'sylva'
 au BufRead,BufNewFile *.md set filetype=markdown
 au BufRead,BufNewFile *.mkd set filetype=markdown
 au BufRead,BufNewFile *.c set filetype=c
+au BufRead,BufNewFile *.kt set filetype=kotlin
+au BufRead,BufNewFile *.kts set filetype=kotlin
 au BufRead,BufNewFile *.sy set filetype=sylva
 
-let b:ale_linters = ['pylint', 'cppcheck']
-let g:ale_linters = { 'python': ['pylint'], 'c': ['cppcheck'], 'ch': ['cppcheck'] }
+let b:ale_linters = ['pylint', 'cppcheck', 'flake8']
+let g:ale_linters = {
+\    'python': ['pylint', 'flake8']
+\    'c': ['cppcheck']
+\    'ch': ['cppcheck']
+\}
 let g:ale_c_parse_compile_commands = 1
 let g:ale_c_build_dir = 'cbuild'
 let g:ale_lint_on_text_changed = 0
@@ -88,4 +105,6 @@ if getcwd() =~# '^/home/charlie/code'
     set secure exrc
 endif
 
-set bg=dark
+if getcwd() =~# '^/Users/cgunyon/code'
+    set secure exrc
+endif
