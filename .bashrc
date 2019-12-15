@@ -13,18 +13,15 @@ set -o vi
 alias wget='curl -O'
 alias ls='ls -G'
 
-gitsu() {
-    branch=$(git status | head -n 1 | cut -d ' ' -f 3)
-    git push --set-upstream origin ${branch}
-}
-
 if [ $(uname) == 'Darwin' ]
 then
     alias pg_ctl='pg_ctl -D /usr/local/var/postgresql@9.6'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -f'
-    alias grep='grep --exclude-dir={static,static_source,node_modules}'
     alias sqlite3='/usr/local/opt/sqlite3/bin/sqlite3'
 fi
+
+alias rawgrep=$(which grep)
+alias grep='grep --exclude-dir={static,static_source,node_modules}'
 
 eslint_fix() {
     node_modules/.bin/eslint --fix 'paladin/static_source/js/src/**' $*
@@ -34,9 +31,18 @@ celery_worker() {
     celery worker --beat --loglevel=INFO --app=paladin.paladin.celery:app
 }
 
+gitsu() {
+    branch=$(git status | head -n 1 | cut -d ' ' -f 3)
+    git push --set-upstream origin ${branch}
+}
+
+git_add_conflicts() {
+    git add $(git status | rawgrep 'both modified:' | cut -d ':' -f2)
+}
+
 PS1='[\u@\h \d \t]\$ '
 
-export LSCOLORS PS1
+export PS1
 
 alias status='clear; listtodo; listtimefor today'
 
