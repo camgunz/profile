@@ -12,8 +12,6 @@ set -o vi
 
 alias wget='curl -O'
 alias ls='ls -G'
-alias black80='black --py36 -S -l 80'
-alias black120='black --py36 -S -l 120'
 
 gitsu() {
     branch=$(git status | head -n 1 | cut -d ' ' -f 3)
@@ -26,51 +24,19 @@ then
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -f'
     alias grep='grep --exclude-dir={static,static_source,node_modules}'
     alias sqlite3='/usr/local/opt/sqlite3/bin/sqlite3'
-
-    eslint_fix() {
-        node_modules/.bin/eslint --fix 'paladin/static_source/js/src/**' $*
-    }
-
-    celery_worker() {
-        celery worker --beat --loglevel=INFO --app=paladin.paladin.celery:app
-    }
-
-    export PYENV_ROOT=$HOME/.pyenv
-    export NVM_DIR="${HOME}/.nvm"
-
-    PATH="${PYENV_ROOT}/bin:${PATH}"
-    PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
-
-    # This loads nvm
-    if [ -s /usr/local/opt/nvm/nvm.sh ]
-    then
-        . /usr/local/opt/nvm/nvm.sh
-    fi
-
-    # This loads nvm bash_completion
-    if [ -s /usr/local/opt/nvm/etc/bash_completion ]
-    then
-        . /usr/local/opt/nvm/etc/bash_completion
-    fi
-
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
-
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-      . $(brew --prefix)/etc/bash_completion
-    fi
 fi
 
-GOPATH="${HOME}/code/go"
-GOROOT='/usr/local/Cellar/go/1.10.3/libexec/bin'
-LSCOLORS='EhgxfdfxcxDxDxBxeded'
+eslint_fix() {
+    node_modules/.bin/eslint --fix 'paladin/static_source/js/src/**' $*
+}
 
-PATH="${PATH}:${GOROOT}/libexec/bin"
-PATH="${PATH}:${HOME}/.cargo/bin"
+celery_worker() {
+    celery worker --beat --loglevel=INFO --app=paladin.paladin.celery:app
+}
 
-PS1='[\d \t] \s-\v\$ '
+PS1='[\u@\h \d \t]\$ '
 
-export GOPATH GOROOT LSCOLORS PATH PS1
+export LSCOLORS PS1
 
 alias status='clear; listtodo; listtimefor today'
 
