@@ -31,9 +31,6 @@ Plugin 'mxw/vim-jsx'
 Plugin 'jparise/vim-graphql'
 Plugin 'w0rp/ale'
 Plugin 'scrooloose/nerdtree'
-Plugin 'alfredodeza/coveragepy.vim'
-Plugin 'ambv/black'
-Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()
 
@@ -74,7 +71,7 @@ filetype plugin indent on
 autocmd FileType c setlocal cindent
 "set cino=(s,m1,c1
 
-let g:vim_markdown_folding_disabed=1
+let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_new_list_item_indent=0
 let g:markdown_fenced_languages=['html', 'python', 'c', 'js=javascript', 'sylva']
 
@@ -87,8 +84,8 @@ au BufRead,BufNewFile *.sy set filetype=sylva
 
 let b:ale_linters = ['pylint', 'cppcheck', 'flake8']
 let g:ale_linters = {
-\    'python': ['pylint', 'flake8']
-\    'c': ['cppcheck']
+\    'python': ['pylint', 'flake8'],
+\    'c': ['cppcheck'],
 \    'ch': ['cppcheck']
 \}
 let g:ale_c_parse_compile_commands = 1
