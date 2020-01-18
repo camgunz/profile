@@ -10,8 +10,39 @@ fi
 
 set -o vi
 
-alias wget='curl -O'
-alias ls='ls -G'
+if [ -f ${HOME}/.secrets ]
+then
+    . ${HOME}/.secrets
+fi
+
+personal_1password() {
+    eval $(${HOME}/bin/op signin my.1password.com charles.gunyon@gmail.com ${PERSONAL_1PASSWORD_SECRET_KEY})
+}
+
+paladin_1password() {
+    eval $(${HOME}/bin/op signin paladin.1password.com charlie@joinpaladin.com ${PALADIN_1PASSWORD_SECRET_KEY})
+}
+
+list_logins() {
+    op list items | jq .[].overview.title | uniq | sort
+}
+
+add_login() {
+    title="${1}"
+    username="${2}"
+    password="${3}"
+    template=$(op get template login)
+    item=$(echo "${template}" | jq -c ".fields[0].value = \"${username}\"" | jq -c ".fields[1].value = \"${password}\"")
+    encoded_item=$(echo "${item}" | ${HOME}/bin/op encode)
+    op create item Login ${encoded_item} --title="${title}" --vault=Personal
+}
+
+get_login() {
+    title="${1}"
+    item=$(op get item "${title}")
+    echo "Username: $(echo "${item}" | jq '.details.fields[0].value')"
+    echo "Password: $(echo "${item}" | jq '.details.fields[1].value')"
+}
 
 if [ $(uname) == 'Darwin' ]
 then
@@ -80,8 +111,14 @@ else
     GOROOT=${HOME}/local/go
 fi
 
+alias wget='curl -O'
+alias ls='ls -G'
 alias rawgrep=$(which grep)
 alias grep='grep --exclude-dir={static,static_source,node_modules}'
+
+venv() {
+    . ${VIRTUALENV_FOLDER}/${1}/bin/activate
+}
 
 eslint_fix() {
     node_modules/.bin/eslint --fix 'paladin/static_source/js/src/**' $*
@@ -100,15 +137,18 @@ git_add_conflicts() {
     git add $(git status | rawgrep 'both modified:' | cut -d ':' -f2)
 }
 
-PS1='[\w \t]\$ '
+PS1='[\t \w]\$ '
 GOPATH="${HOME}/code/go"
 PATH=$PATH:${GOROOT}/bin:$(go env GOPATH)/bin
 PATH=$PATH:"${HOME}/.cargo/bin"
 PATH=$PATH:${HOME}/bin
 LSCOLORS='EhgxfdfxcxDxDxBxeded'
-PIM_FOLDER="~/.cg_pim"
+PIM_FOLDER="${HOME}/.cg_pim"
+VIRTUALENV_FOLDER=${HOME}/.virtualenvs"
+SAM_CLI_TELEMETRY=0
+DOOMWADDIR="${HOME}/.d2k/wads"
 
-export PS1 GOROOT GOPATH PATH LSCOLORS PIM_FOLDER
+export PS1 GOROOT GOPATH PATH LSCOLORS PIM_FOLDER SAM_CLI_TELEMETRY DOOMWADDIR
 
 alias status='clear; listtodo; listtimefor today'
 

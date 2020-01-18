@@ -31,6 +31,7 @@ Plugin 'mxw/vim-jsx'
 Plugin 'jparise/vim-graphql'
 Plugin 'w0rp/ale'
 Plugin 'scrooloose/nerdtree'
+Plugin 'jmcantrell/vim-virtualenv'
 
 call vundle#end()
 
