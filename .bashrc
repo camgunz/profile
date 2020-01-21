@@ -48,10 +48,10 @@ if [ $(uname) == 'Darwin' ]
 then
     if [ -z ${SSH_AGENT_PID} ]
     then
-        ssh-add ~/.ssh/id_bitbucket
-        ssh-add ~/.ssh/id_ed25519
-        ssh-add ~/.ssh/id_prgmr
-        ssh-add ~/.ssh/id_totaltrash
+        ssh-add -q ~/.ssh/id_bitbucket
+        ssh-add -q ~/.ssh/id_ed25519
+        ssh-add -q ~/.ssh/id_prgmr
+        ssh-add -q ~/.ssh/id_totaltrash
     fi
 
     export PYENV_ROOT=$HOME/.pyenv
@@ -89,15 +89,15 @@ else
     if [ -z ${SSH_AGENT_PID} ]
     then
         eval $(ssh-agent)
-        ssh-add ~/.ssh/id_bitbucket
-        ssh-add ~/.ssh/id_dsa
-        ssh-add ~/.ssh/id_github
-        ssh-add ~/.ssh/id_prgmr
-        ssh-add ~/.ssh/id_router
-        ssh-add ~/.ssh/id_router2
-        ssh-add ~/.ssh/id_rsa
-        ssh-add ~/.ssh/id_rsa2
-        ssh-add ~/.ssh/id_totaltrash
+        ssh-add -q ~/.ssh/id_bitbucket
+        ssh-add -q ~/.ssh/id_dsa
+        ssh-add -q ~/.ssh/id_github
+        ssh-add -q ~/.ssh/id_prgmr
+        ssh-add -q ~/.ssh/id_router
+        ssh-add -q ~/.ssh/id_router2
+        ssh-add -q ~/.ssh/id_rsa
+        ssh-add -q ~/.ssh/id_rsa2
+        ssh-add -q ~/.ssh/id_totaltrash
     fi
 
     if [ -z "$NVM_DIR" ]
@@ -114,7 +114,7 @@ fi
 alias wget='curl -O'
 alias ls='ls -G'
 alias rawgrep=$(which grep)
-alias grep='grep --exclude-dir={static,static_source,node_modules}'
+alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_states}'
 
 venv() {
     . ${VIRTUALENV_FOLDER}/${1}/bin/activate
@@ -138,6 +138,7 @@ git_add_conflicts() {
 }
 
 PS1='[\t \w]\$ '
+LC_ALL=en_US.UTF-8
 GOPATH="${HOME}/code/go"
 PATH=$PATH:${GOROOT}/bin:$(go env GOPATH)/bin
 PATH=$PATH:"${HOME}/.cargo/bin"
@@ -148,7 +149,7 @@ VIRTUALENV_FOLDER=${HOME}/.virtualenvs"
 SAM_CLI_TELEMETRY=0
 DOOMWADDIR="${HOME}/.d2k/wads"
 
-export PS1 GOROOT GOPATH PATH LSCOLORS PIM_FOLDER SAM_CLI_TELEMETRY DOOMWADDIR
+export GOPATH GOROOT LSCOLORS NVM_ROOT PATH PIM_FOLDER PS1 SAM_CLI_TELEMETRY DOOMWADDIR
 
 alias status='clear; listtodo; listtimefor today'
 
