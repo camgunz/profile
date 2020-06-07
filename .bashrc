@@ -28,6 +28,7 @@ list_logins() {
 }
 
 add_login() {
+    # [TODO] Read password from STDIN
     title="${1}"
     username="${2}"
     password="${3}"
@@ -40,16 +41,30 @@ add_login() {
 get_login() {
     title="${1}"
     item=$(op get item "${title}")
-    username=$(echo "${item}" | jq -cr '.details.fields | map(select(.designation == "username"))[0].value')
-    password=$(echo "${item}" | jq -cr '.details.fields | map(select(.designation == "password"))[0].value')
-    totp=$(echo "${item}" | jq -cr '.details.sections[0].fields | map(select(.t == "one-time password"))[0].v')
-    if [ "$username" != 'null' ]; then echo "Username: ${username}"; fi
-    if [ "$password" != 'null' ]
+
+    username=$(echo "${item}" | jq -cr \
+        '.details.fields | map(select(.designation == "username"))[0].value')
+
+    password=$(echo "${item}" | jq -cr \
+        '.details.fields | map(select(.designation == "password"))[0].value')
+
+    totp=$(echo "${item}" | jq -cr \
+        '.details.sections[0].fields | map(select(.t == "one-time password"))[0].v')
+
+    if [ "${username}" != 'null' -a ! -z "${username}" ]
+        then echo "Username: ${username}"
+    fi
+
+    if [ "${password}" != 'null' -a ! -z "${password}" ]
     then
         echo "Password: ${password}"
         echo "${password}" | xclip -r
     fi
-    if [ "${totp}" != 'null' ]; then echo "TOTP: $(oathtool --totp -b $totp)"; fi
+
+    if [ "${totp}" != 'null' -a ! -z "${totp}" ]
+    then
+        echo "TOTP: $(oathtool --totp -b $totp)"
+    fi
 }
 
 export NVM_DIR="${HOME}/.nvm"
