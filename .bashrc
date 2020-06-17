@@ -64,9 +64,9 @@ then
         ssh-add -q ~/.ssh/id_totaltrash
     fi
 
-    export PYENV_ROOT=$HOME/.pyenv
+    # export PYENV_ROOT=$HOME/.pyenv
 
-    PATH="${PYENV_ROOT}/bin:${PATH}"
+    # PATH="${PYENV_ROOT}/bin:${PATH}"
     PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
     # This loads nvm
@@ -81,21 +81,19 @@ then
         . /usr/local/opt/nvm/etc/bash_completion
     fi
 
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    # eval "$(pyenv init -)"
+    # eval "$(pyenv virtualenv-init -)"
 
     if [ -f $(brew --prefix)/etc/bash_completion ]
     then
       . $(brew --prefix)/etc/bash_completion
     fi
 
-    GOROOT='/usr/local/Cellar/go/1.10.3/libexec/bin'
-
     alias pg_ctl='pg_ctl -D /usr/local/var/postgresql@9.6'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -f'
     alias sqlite3='/usr/local/opt/sqlite3/bin/sqlite3'
-    alias rawgrep=$(which grep)
-    alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_states}'
+
+    VIRTUALENV_FOLDER="${HOME}/.venvs"
 else
     if [ -z ${SSH_AGENT_PID} ]
     then
@@ -126,11 +124,13 @@ else
         . /usr/share/nvm/install-nvm-exec
     fi
 
-    GOROOT=${HOME}/local/go
+    VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
 fi
 
 alias wget='curl -O'
 alias ls='ls -G'
+alias rawgrep=$(which grep)
+alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_states}'
 
 venv() {
     . ${VIRTUALENV_FOLDER}/${1}/bin/activate
@@ -153,19 +153,20 @@ git_add_conflicts() {
     git add $(git status | rawgrep 'both modified:' | cut -d ':' -f2)
 }
 
+EDITOR=vim
 PS1='[\t \w]\$ '
 LC_ALL=en_US.UTF-8
 GOPATH="${HOME}/code/go"
-PATH=$PATH:${GOROOT}/bin:$(go env GOPATH)/bin
+PATH=$PATH:$(go env GOPATH)/bin
 PATH=$PATH:"${HOME}/.cargo/bin"
 PATH=$PATH:${HOME}/bin
 LSCOLORS='EhgxfdfxcxDxDxBxeded'
 PIM_FOLDER="${HOME}/.cg_pim"
-VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
 SAM_CLI_TELEMETRY=0
 DOOMWADDIR="${HOME}/.d2k/wads"
 
-export GOPATH GOROOT LSCOLORS NVM_ROOT PATH PIM_FOLDER PS1 SAM_CLI_TELEMETRY DOOMWADDIR
+export EDITOR GOPATH LC_ALL LSCOLORS NVM_ROOT PATH PIM_FOLDER PS1
+export SAM_CLI_TELEMETRY DOOMWADDIR
 
 alias status='clear; listtodo; listtimefor today'
 
