@@ -145,7 +145,7 @@ PATH=$PATH:"${HOME}/.cargo/bin"
 PATH=$PATH:${HOME}/bin
 LSCOLORS='EhgxfdfxcxDxDxBxeded'
 PIM_FOLDER="${HOME}/.cg_pim"
-VIRTUALENV_FOLDER=${HOME}/.virtualenvs"
+VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
 SAM_CLI_TELEMETRY=0
 DOOMWADDIR="${HOME}/.d2k/wads"
 
