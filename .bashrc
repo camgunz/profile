@@ -40,9 +40,19 @@ add_login() {
 get_login() {
     title="${1}"
     item=$(op get item "${title}")
-    echo "Username: $(echo "${item}" | jq '.details.fields[0].value')"
-    echo "Password: $(echo "${item}" | jq '.details.fields[1].value')"
+    username=$(echo "${item}" | jq -cr '.details.fields | map(select(.designation == "username"))[0].value')
+    password=$(echo "${item}" | jq -cr '.details.fields | map(select(.designation == "password"))[0].value')
+    totp=$(echo "${item}" | jq -cr '.details.sections[0].fields | map(select(.t == "one-time password"))[0].v')
+    if [ "$username" != 'null' ]; then echo "Username: ${username}"; fi
+    if [ "$password" != 'null' ]
+    then
+        echo "Password: ${password}"
+        echo "${password}" | xclip -r
+    fi
+    if [ "${totp}" != 'null' ]; then echo "TOTP: $(oathtool --totp -b $totp)"; fi
 }
+
+export NVM_DIR="${HOME}/.nvm"
 
 if [ $(uname) == 'Darwin' ]
 then
@@ -55,19 +65,18 @@ then
     fi
 
     export PYENV_ROOT=$HOME/.pyenv
-    export NVM_DIR="${HOME}/.nvm"
 
     PATH="${PYENV_ROOT}/bin:${PATH}"
     PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
     # This loads nvm
-    if [ -s /usr/local/opt/nvm/nvm.sh ]
+    if [ -r /usr/local/opt/nvm/nvm.sh ]
     then
         . /usr/local/opt/nvm/nvm.sh
     fi
 
     # This loads nvm bash_completion
-    if [ -s /usr/local/opt/nvm/etc/bash_completion ]
+    if [ -r /usr/local/opt/nvm/etc/bash_completion ]
     then
         . /usr/local/opt/nvm/etc/bash_completion
     fi
@@ -85,6 +94,8 @@ then
     alias pg_ctl='pg_ctl -D /usr/local/var/postgresql@9.6'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -f'
     alias sqlite3='/usr/local/opt/sqlite3/bin/sqlite3'
+    alias rawgrep=$(which grep)
+    alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_states}'
 else
     if [ -z ${SSH_AGENT_PID} ]
     then
@@ -100,11 +111,18 @@ else
         ssh-add -q ~/.ssh/id_totaltrash
     fi
 
-    if [ -z "$NVM_DIR" ]
+    if [ -r /usr/share/nvm/nvm.sh ]
     then
-        export NVM_DIR="${HOME}/.nvm"
         . /usr/share/nvm/nvm.sh
+    fi
+
+    if [ -r /usr/share/nvm/bash_completion ]
+    then
         . /usr/share/nvm/bash_completion
+    fi
+
+    if [ -r /usr/share/nvm/install-nvm-exec ]
+    then
         . /usr/share/nvm/install-nvm-exec
     fi
 
@@ -113,8 +131,6 @@ fi
 
 alias wget='curl -O'
 alias ls='ls -G'
-alias rawgrep=$(which grep)
-alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_states}'
 
 venv() {
     . ${VIRTUALENV_FOLDER}/${1}/bin/activate
