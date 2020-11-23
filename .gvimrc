@@ -12,17 +12,18 @@ else
     " Office Code Pro
     " Roboto Mono
     " set guifont=Px437\ IBM\ ISO9\ 14
-    " set guifont=Cousine\ 9
-    set guifont=Source\ Code\ Pro\ 9
+    " set guifont=Cousine\ 9,Twitter\ Color\ Emoji\ 9
+    set guifont=Source\ Code\ Pro\ 9,Twitter Color Emoji\ 9
 endif
 
-" colorscheme macvim
+colorscheme macvim
 " colorscheme midori
 " colorscheme asmdev
-colorscheme amber
+" colorscheme amber
 
 
-set background=dark
+" set background=dark
+set background=light
 " set columns=382
 " set lines=93
 
