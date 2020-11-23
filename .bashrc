@@ -41,6 +41,7 @@ add_login() {
 get_login() {
     title="${1}"
     item=$(op get item "${title}")
+    totp=$(op get totp "${title}" 2> /dev/null)
 
     username=$(echo "${item}" | jq -cr \
         '.details.fields | map(select(.designation == "username"))[0].value')
@@ -48,22 +49,18 @@ get_login() {
     password=$(echo "${item}" | jq -cr \
         '.details.fields | map(select(.designation == "password"))[0].value')
 
-    totp=$(echo "${item}" | jq -cr \
-        '.details.sections[0].fields | map(select(.t == "one-time password"))[0].v')
-
     if [ "${username}" != 'null' -a ! -z "${username}" ]
         then echo "Username: ${username}"
     fi
 
     if [ "${password}" != 'null' -a ! -z "${password}" ]
     then
-        echo "Password: ${password}"
         echo "${password}" | xclip -r
     fi
 
-    if [ "${totp}" != 'null' -a ! -z "${totp}" ]
+    if [ ! -z "${totp}" ]
     then
-        echo "TOTP: $(oathtool --totp -b $totp)"
+        echo "TOTP: ${totp}"
     fi
 }
 
@@ -104,11 +101,11 @@ then
       . $(brew --prefix)/etc/bash_completion
     fi
 
+    # GOROOT='/usr/local/Cellar/go/1.10.3/libexec/bin'
+
     alias pg_ctl='pg_ctl -D /usr/local/var/postgresql@9.6'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -f'
     alias sqlite3='/usr/local/opt/sqlite3/bin/sqlite3'
-
-    VIRTUALENV_FOLDER="${HOME}/.venvs"
 else
     if [ -z ${SSH_AGENT_PID} ]
     then
@@ -138,8 +135,6 @@ else
     then
         . /usr/share/nvm/install-nvm-exec
     fi
-
-    VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
 fi
 
 alias wget='curl -O'
@@ -172,11 +167,13 @@ EDITOR=vim
 PS1='[\t \w]\$ '
 LC_ALL=en_US.UTF-8
 GOPATH="${HOME}/code/go"
-PATH=$PATH:$(go env GOPATH)/bin
+PATH=$PATH:"$(go env GOPATH)/bin"
 PATH=$PATH:"${HOME}/.cargo/bin"
-PATH=$PATH:${HOME}/bin
+PATH=$PATH:"${HOME}/bin"
+PATH=$PATH:"${HOME}/.local/bin"
 LSCOLORS='EhgxfdfxcxDxDxBxeded'
 PIM_FOLDER="${HOME}/.cg_pim"
+VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
 SAM_CLI_TELEMETRY=0
 DOOMWADDIR="${HOME}/.d2k/wads"
 
@@ -196,3 +193,6 @@ alias todo='~/bin/pim.py todo add --description'
 alias listtodo='~/bin/pim.py todo list'
 alias removetodo='~/bin/pim.py todo remove --id'
 alias edittodo='~/bin/pim.py todo edit --id'
+
+. ${HOME}/working/google-cloud-sdk/completion.bash.inc
+. ${HOME}/working/google-cloud-sdk/path.bash.inc
