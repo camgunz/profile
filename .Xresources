@@ -1,33 +1,42 @@
 Xft.dpi: 72
 !Xft.dpi: 125
 !Xft.dpi: 92
-Xft*forcePackedFont: false
-XTerm*faceName: xft:Liberation Mono:pixelsize=9
-XTerm*faceNameDoublesize: xft:unifont:pixelsize=12
-XTerm*faceSize: 8
+Xft*forcePackedFont: true
+!XTerm*faceName: xft:Liberation Mono:pixelsize=9
+!XTerm*faceName: xft:Source Code Pro:pixelsize=9
+!XTerm*faceName: xft:artwiz lime.se:antialias=false
+XTerm*faceName: xft:artwiz lime.se:pixelsize=9:antialias=false
+!XTerm*boldFont: xft:Source Code Pro
+XTerm*faceNameDoublesize: xft:unifont:pixelsize=12,xft:Twitter Color Emoji:pixelsize=9
+XTerm*faceSize: 18
+
 XTerm*foreground: White
 XTerm*background: Black
-XTerm*allowBoldFonts: True
-XTerm*allowColorOps: True
-XTerm*allowTcapOps: True
-XTerm*allowWindowOps: True
-XTerm*dynamicColors: True
-XTerm*jumpScroll: True
-XTerm*fastScroll: True
-XTerm*renderFont: True
+XTerm*boldMode: false
+xterm*alwaysBoldMode: true
+XTerm*allowBoldFonts: true
+XTerm*allowColorOps: true
+XTerm*allowTcapOps: true
+XTerm*allowWindowOps: true
+XTerm*dynamicColors: true
+XTerm*jumpScroll: true
+XTerm*fastScroll: true
+XTerm*renderFont: true
 XTerm*saveLines: 2000
 XTerm*termName: xterm-256color
+XTerm*scaleHeight: 1.0
 XTerm*utf8: 2
-XTerm*utfTitle: True
-XTerm*visualBell: True
+XTerm*utfTitle: true
+XTerm*visualBell: true
+XTerm*visualBellLine: true
 XTerm*cursorColor: #609060
 
 URxvt.saveLines: 2000
-URxvt.reverseVideo: False
+URxvt.reverseVideo: false
 !URxvt.font: xft:Input:pixelsize=8,xft:unifont
 URxvt.font: xft:Liberation Mono:pixelsize=10,xft:unifont
-URxvt.scrollBar: False
-URxvt.cursorBlink: False
+URxvt.scrollBar: false
+URxvt.cursorBlink: false
 URxvt.termname: rxvt-256color
 URxvt.letterSpace: -1
 URxvt.foreground: White
