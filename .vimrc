@@ -1,6 +1,6 @@
 set nocompatible
 set t_Co=256
-set shellcmdflag=-ic
+set shellcmdflag=-c
 filetype off
 filetype plugin indent off
 if has("win32") || has("win16")
@@ -29,7 +29,7 @@ Plugin 'udalov/kotlin-vim'
 Plugin 'vim-scripts/gtk-vim-syntax'
 Plugin 'MaxMEllon/vim-jsx-pretty'
 Plugin 'jparise/vim-graphql'
-Plugin 'dense-analysis/ale'
+"Plugin 'dense-analysis/ale'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'thinca/vim-localrc'

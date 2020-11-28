@@ -1,38 +1,52 @@
 #!/bin/sh
 
-sudo apt-get install \
+sudo pacman -S \
+  acpi \
+  acpid \
+  alsa-plugins \
+  alsa-utils \
+  bash-completion \
+  bdf-unifont \
+  binutils \
+  bison \
+  bzip2 \
+  cbatticon \
+  cmus \
+  dhcpcd \
+  diffutils \
+  efibootmgr \
+  fakeroot \
+  feh \
+  findutils \
+  firefox \
   fluxbox \
-  vim \
-  tmux \
-  stterm \
-  surf \
-  xcompmgr \
-  hsetroot \
-  unifont \
-  ttf-unifont \
-  gdb \
-  cmake \
-  mercurial \
+  gcc \
   git \
-  subversion \
-  astyle \
-  ctags \
-  google-perftools \
-  libgoogle-perftools-dev \
-  libgoogle-perftools4 \
-  clang \
-  libclang-dev \
-  libclang1-dbg \
-  libgl1-mesa-dev \
-  libgles2-mesa \
-  libgles2-mesa-dev \
-  xorg-dev \
-  libx11-dev \
-  libogg-dev \
-  libmad0-dev \
-  libvorbis-dev \
-  libportmidi-dev \
-  libfluidsynth-dev \
-  libsdl1.2-dev \
-  libsdl-mixer1.2-dev \
-  libsdl-image1.2-dev
+  go \
+  grub \
+  gzip \
+  hsetroot \
+  intel-ucode \
+  jq \
+  lsof \
+  lua \
+  make \
+  nodejs \
+  npm \
+  p7zip \
+  patch \
+  python \
+  slock \
+  sudo \
+  ttf-liberation \
+  unzip \
+  vi \
+  which \
+  xclip \
+  xf86-video-intel \
+  xorg-xinit \
+  xorg-server \
+  xorg-xrandr \
+  xterm \
+  xz \
+  zip

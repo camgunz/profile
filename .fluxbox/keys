@@ -32,9 +32,19 @@ Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
 
 # volume settings, using common keycodes
 # if these don't work, use xev to find out your real keycodes
-176 :Exec amixer sset Master,0 1+
-174 :Exec amixer sset Master,0 1-
-160 :Exec amixer sset Master,0 toggle
+
+# 176 :Exec amixer sset Master,0 1+
+# 174 :Exec amixer sset Master,0 1-
+# 160 :Exec amixer sset Master,0 toggle
+
+121 :Exec amixer -c 0 sset Master toggle -q
+122 :Exec amixer -c 0 sset -M Master 5%- unmute -q
+123 :Exec amixer -c 0 sset -M Master 5%+ unmute -q
+198 :Exec amixer -c 0 cset numid=6 toggle -q
+232 :Exec xbacklight -dec 5
+233 :Exec xbacklight -inc 5
+# 179 :Exec tools
+# 245 :Exec bluetooth
 
 # open the window menu
 Mod1 space :WindowMenu
@@ -57,13 +67,13 @@ Mod4 F11 :Workspace 11
 Mod4 F12 :Workspace 12
 
 Mod4 r :Exec fbrun -font "artwizsnap-9" -fg grey -bg black
-Mod4 g :Exec /usr/bin/gvim
+Mod4 e :Exec ~/bin/term -e vim
 Mod4 f :Exec ~/bin/browser
-Mod4 t :Exec /usr/bin/xterm -e /usr/bin/tmux
+Mod4 t :Exec ~/bin/term
+Mod4 m :Exec ~/bin/term -e alsamixer
 Mod4 v :MaximizeVertical
 Mod4 h :MaximizeHorizontal
 Mod4 x :Maximize
 Mod1 F4 :Close
 Mod1 F5 :Kill
 Mod1 F6 :Restart
-
