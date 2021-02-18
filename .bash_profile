@@ -4,6 +4,5 @@
 
 if [ -f ${HOME}/.bashrc ]
 then
-    . ${HOME}/.bashrc
+  . ${HOME}/.bashrc
 fi
-

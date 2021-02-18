@@ -3,15 +3,17 @@ Xft.dpi: 72
 !Xft.dpi: 92
 Xft*forcePackedFont: true
 !XTerm*faceName: xft:Liberation Mono:pixelsize=12
+!XTerm*faceName: xft:Source Code Pro:pixelsize=24
 !XTerm*faceName: xft:Source Code Pro:pixelsize=12
 !XTerm*faceName: xft:artwiz lime.se:antialias=false
 !XTerm*faceName: xft:artwiz lime.se:pixelsize=9:antialias=false
 !XTerm*boldFont: xft:Source Code Pro
 !XTerm*faceName: xft:Source Code Pro
-XTerm*faceName: xft:CtrlD:antialias=false
-XTerm*boldFont: xft:CtrlD:antialias=false
+!XTerm*faceName: xft:CtrlD:antialias=false
+!XTerm*boldFont: xft:CtrlD:antialias=false
+XTerm*faceName: xft:GohuFont:antialias=false
+XTerm*boldFont: xft:GohuFont:antialias=false
 !XTerm*boldFont: xft:Liberation Mono:pixelsize=18
-!XTerm*faceName: xft:GohuFont:antialias=false
 !XTerm*faceName: xft:Misc Tamsynmod:antialias=false
 !XTerm*faceName: xft:peep:antialias=false
 !XTerm*faceName: xft:Spleen:antialias=false

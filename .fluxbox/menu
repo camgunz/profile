@@ -1,7 +1,7 @@
 [begin] (Fluxbox)
   [submenu] (Apps)
-    [exec] (XTerm) {/usr/bin/xterm -e /usr/bin/tmux}
-    [exec] (Vim) {/usr/bin/xterm -e /usr/bin/vim}
+    [exec] (XTerm) {~/bin/term}
+    [exec] (Vim) {~/bin/term -e /usr/bin/vim}
     [exec] (Browser) {~/bin/browser}
   [end]
   [config] (Config)

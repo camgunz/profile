@@ -33,14 +33,16 @@ Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
 # volume settings, using common keycodes
 # if these don't work, use xev to find out your real keycodes
 
-# 176 :Exec amixer sset Master,0 1+
-# 174 :Exec amixer sset Master,0 1-
-# 160 :Exec amixer sset Master,0 toggle
+# 121 :Exec amixer -c 0 sset Master toggle -q
+# 122 :Exec amixer -c 0 sset -M Master 5%- unmute -q
+# 123 :Exec amixer -c 0 sset -M Master 5%+ unmute -q
+# 198 :Exec amixer -c 0 cset numid=6 toggle -q
 
-121 :Exec amixer -c 0 sset Master toggle -q
-122 :Exec amixer -c 0 sset -M Master 5%- unmute -q
-123 :Exec amixer -c 0 sset -M Master 5%+ unmute -q
-198 :Exec amixer -c 0 cset numid=6 toggle -q
+121 :Exec pactl set-sink-mute 0 toggle
+122 :Exec pactl set-sink-volume 0 -5%; pactl set-sink-mute 0 0
+123 :Exec pactl set-sink-volume 0 +5%; pactl set-sink-mute 0 0
+198 :Exec pactl set-source-mute 1 toggle
+
 232 :Exec xbacklight -dec 5
 233 :Exec xbacklight -inc 5
 # 179 :Exec tools
@@ -70,7 +72,7 @@ Mod4 r :Exec fbrun -font "artwizsnap-9" -fg grey -bg black
 Mod4 e :Exec ~/bin/term -e vim
 Mod4 f :Exec ~/bin/browser
 Mod4 t :Exec ~/bin/term
-Mod4 m :Exec ~/bin/term -e alsamixer
+Mod4 m :Exec ~/bin/term -e pulsemixer
 Mod4 v :MaximizeVertical
 Mod4 h :MaximizeHorizontal
 Mod4 x :Maximize

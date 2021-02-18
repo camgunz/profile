@@ -15,12 +15,8 @@ then
     . ${HOME}/.secrets
 fi
 
-personal_1password() {
-    eval $(${HOME}/bin/op signin my.1password.com charles.gunyon@gmail.com ${PERSONAL_1PASSWORD_SECRET_KEY})
-}
-
-paladin_1password() {
-    eval $(${HOME}/bin/op signin paladin.1password.com charlie@joinpaladin.com ${PALADIN_1PASSWORD_SECRET_KEY})
+1password() {
+    eval $(${HOME}/bin/op signin my.1password.com charles.gunyon@gmail.com ${ONE_PASSWORD_SECRET_KEY})
 }
 
 list_logins() {
@@ -40,17 +36,24 @@ add_login() {
 
 get_login() {
     title="${1}"
-    item=$(op get item "${title}")
+
+    item=$(op get item "${title}" --fields username --fields password --fields website)
+    if [ $? != 0 ]
+    then
+        exit
+    fi
+
+    username=$(echo "${item}" | jq -cr .username)
+    password=$(echo "${item}" | jq -cr .password)
+    website=$(echo "${item}" | jq -cr .website)
     totp=$(op get totp "${title}" 2> /dev/null)
-
-    username=$(echo "${item}" | jq -cr \
-        '.details.fields | map(select(.designation == "username"))[0].value')
-
-    password=$(echo "${item}" | jq -cr \
-        '.details.fields | map(select(.designation == "password"))[0].value')
 
     if [ "${username}" != 'null' -a ! -z "${username}" ]
         then echo "Username: ${username}"
+    fi
+
+    if [ "${website}" != 'null' -a ! -z "${website}" ]
+        then echo "Website:  ${website}"
     fi
 
     if [ "${password}" != 'null' -a ! -z "${password}" ]
@@ -60,7 +63,7 @@ get_login() {
 
     if [ ! -z "${totp}" ]
     then
-        echo "TOTP: ${totp}"
+        echo "TOTP:     ${totp}"
     fi
 }
 
@@ -121,19 +124,14 @@ else
         ssh-add -q ~/.ssh/id_totaltrash
     fi
 
-    if [ -r /usr/share/nvm/nvm.sh ]
+    if [ -r ${NVM_DIR}/nvm.sh ]
     then
-        . /usr/share/nvm/nvm.sh
+        . ${NVM_DIR}/nvm.sh
     fi
 
-    if [ -r /usr/share/nvm/bash_completion ]
+    if [ -r ${NVM_DIR}/bash_completion ]
     then
-        . /usr/share/nvm/bash_completion
-    fi
-
-    if [ -r /usr/share/nvm/install-nvm-exec ]
-    then
-        . /usr/share/nvm/install-nvm-exec
+        . ${NVM_DIR}/bash_completion
     fi
 fi
 
@@ -144,14 +142,6 @@ alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_sta
 
 venv() {
     . ${VIRTUALENV_FOLDER}/${1}/bin/activate
-}
-
-eslint_fix() {
-    node_modules/.bin/eslint --fix 'paladin/static_source/js/src/**' $*
-}
-
-celery_worker() {
-    celery worker --beat --loglevel=INFO --app=paladin.paladin.celery:app
 }
 
 gitsu() {
@@ -176,9 +166,10 @@ PIM_FOLDER="${HOME}/.cg_pim"
 VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
 SAM_CLI_TELEMETRY=0
 DOOMWADDIR="${HOME}/.d2k/wads"
+MAKEFLAGS=-j8
 
 export EDITOR GOPATH LC_ALL LSCOLORS NVM_ROOT PATH PIM_FOLDER PS1
-export SAM_CLI_TELEMETRY DOOMWADDIR
+export SAM_CLI_TELEMETRY DOOMWADDIR MAKEFLAGS
 
 alias status='clear; listtodo; listtimefor today'
 
@@ -193,6 +184,3 @@ alias todo='~/bin/pim.py todo add --description'
 alias listtodo='~/bin/pim.py todo list'
 alias removetodo='~/bin/pim.py todo remove --id'
 alias edittodo='~/bin/pim.py todo edit --id'
-
-. ${HOME}/working/google-cloud-sdk/completion.bash.inc
-. ${HOME}/working/google-cloud-sdk/path.bash.inc
