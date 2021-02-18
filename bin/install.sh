@@ -12,6 +12,7 @@ cp ~/profile/.vimrc ~/.vimrc
 cp ~/profile/.gvimrc ~/.gvimrc
 cp ~/profile/.bashrc ~/.bashrc
 cp ~/profile/.bash_profile ~/.bash_profile
+cp ~/profile/.editrc ~/.editrc
 cp ~/profile/.inputrc ~/.inputrc
 cp ~/profile/.xinitrc ~/.xinitrc
 

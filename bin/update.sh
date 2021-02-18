@@ -7,6 +7,7 @@ cp -a .vimrc .
 cp -a .gvimrc .
 cp -a .bashrc .
 cp -a .bash_profile .
+cp -a .editrc .
 cp -a .inputrc .
 cp -a .xinitrc .
 cp -a .fluxbox/backgrounds/* .fluxbox/backgrounds/
