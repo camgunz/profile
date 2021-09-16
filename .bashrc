@@ -69,20 +69,32 @@ get_login() {
 
 export NVM_DIR="${HOME}/.nvm"
 
-if [ $(uname) == 'Darwin' ]
+if [ $(uname) = 'Darwin' ]
 then
     if [ -z ${SSH_AGENT_PID} ]
     then
+        ssh-add -q ~/.ssh/id_ed25519    # Paladin?
         ssh-add -q ~/.ssh/id_bitbucket
-        ssh-add -q ~/.ssh/id_ed25519
+        ssh-add -q ~/.ssh/id_github
         ssh-add -q ~/.ssh/id_prgmr
+        ssh-add -q ~/.ssh/id_router
+        ssh-add -q ~/.ssh/id_rsa3
         ssh-add -q ~/.ssh/id_totaltrash
+        ssh-add -q ~/.ssh/id_ttgithub
+        ssh-add -q ~/.ssh/id_nea_bitbucket
+        # ssh-add -q ~/.ssh/bad_id_rsa  # --invalid format--
+        # ssh-add -q ~/.ssh/id_dsa      # Passphrase
+        # ssh-add -q ~/.ssh/id_router2  # Unknown passphrase
+        # ssh-add -q ~/.ssh/id_router3  # --invalid format--
+        # ssh-add -q ~/.ssh/id_rsa      # Passphrase
+        # ssh-add -q ~/.ssh/id_rsa2     # Passphrase
+        # ssh-add -q ~/.ssh/id_rsa4     # Unknown passphrase
     fi
 
     # export PYENV_ROOT=$HOME/.pyenv
 
     # PATH="${PYENV_ROOT}/bin:${PATH}"
-    PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
+    # PATH="/usr/local/opt/postgresql@9.6/bin:${PATH}"
 
     # This loads nvm
     if [ -r /usr/local/opt/nvm/nvm.sh ]
@@ -109,19 +121,27 @@ then
     alias pg_ctl='pg_ctl -D /usr/local/var/postgresql@9.6'
     alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g -f'
     alias sqlite3='/usr/local/opt/sqlite3/bin/sqlite3'
+    alias rlpsql='rlwrap --always-readline --no-children psql'
 else
     if [ -z ${SSH_AGENT_PID} ]
     then
         eval $(ssh-agent)
+        ssh-add -q ~/.ssh/id_ed25519    # Paladin?
         ssh-add -q ~/.ssh/id_bitbucket
-        ssh-add -q ~/.ssh/id_dsa
         ssh-add -q ~/.ssh/id_github
         ssh-add -q ~/.ssh/id_prgmr
         ssh-add -q ~/.ssh/id_router
-        ssh-add -q ~/.ssh/id_router2
-        ssh-add -q ~/.ssh/id_rsa
-        ssh-add -q ~/.ssh/id_rsa2
+        ssh-add -q ~/.ssh/id_rsa3
         ssh-add -q ~/.ssh/id_totaltrash
+        ssh-add -q ~/.ssh/id_ttgithub
+        ssh-add -q ~/.ssh/id_nea_bitbucket
+        # ssh-add -q ~/.ssh/bad_id_rsa  # --invalid format--
+        # ssh-add -q ~/.ssh/id_dsa      # Passphrase
+        # ssh-add -q ~/.ssh/id_router2  # Unknown passphrase
+        # ssh-add -q ~/.ssh/id_router3  # --invalid format--
+        # ssh-add -q ~/.ssh/id_rsa      # Passphrase
+        # ssh-add -q ~/.ssh/id_rsa2     # Passphrase
+        # ssh-add -q ~/.ssh/id_rsa4     # Unknown passphrase
     fi
 
     if [ -r ${NVM_DIR}/nvm.sh ]
@@ -135,10 +155,18 @@ else
     fi
 fi
 
+if [ $(basename $SHELL) = 'zsh' ]
+then
+    PS1='[%* %/]$ '
+else
+    PS1='[\t \w]\$ '
+fi
+
 alias wget='curl -O'
 alias ls='ls -G'
 alias rawgrep=$(which grep)
 alias grep='grep --exclude-dir={static,static_source,node_modules,diffs,save_states}'
+alias load1p='grep ONE ~/.secrets | cut -d = -f 2 | pbcopy'
 
 venv() {
     . ${VIRTUALENV_FOLDER}/${1}/bin/activate
@@ -154,13 +182,15 @@ git_add_conflicts() {
 }
 
 EDITOR=vim
-PS1='[\t \w]\$ '
 LC_ALL=en_US.UTF-8
 GOPATH="${HOME}/code/go"
 PATH=$PATH:"$(go env GOPATH)/bin"
 PATH=$PATH:"${HOME}/.cargo/bin"
 PATH=$PATH:"${HOME}/bin"
 PATH=$PATH:"${HOME}/.local/bin"
+PATH=$PATH:/usr/local/opt/openjdk/bin
+PATH=$PATH:/Library/PostgreSQL/13/bin
+PATH=$PATH:'/Applications/Racket v8.2/bin/'
 LSCOLORS='EhgxfdfxcxDxDxBxeded'
 PIM_FOLDER="${HOME}/.cg_pim"
 VIRTUALENV_FOLDER="${HOME}/.virtualenvs"
@@ -184,3 +214,4 @@ alias todo='~/bin/pim.py todo add --description'
 alias listtodo='~/bin/pim.py todo list'
 alias removetodo='~/bin/pim.py todo remove --id'
 alias edittodo='~/bin/pim.py todo edit --id'
+. "$HOME/.cargo/env"
